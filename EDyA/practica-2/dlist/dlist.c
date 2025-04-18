@@ -35,6 +35,9 @@ int dlist_vacia(DNodo *lista) {
 DList* dlist_agregar_inicio (DList *puntos, int dato) {
     // Crear nodo y agregarle dato
     DNodo* temp = malloc(sizeof(DNodo));
+    if(temp == NULL) {
+        return puntos;
+    }
 
     // Ajustar el temp
     temp->dato = dato;
@@ -53,6 +56,9 @@ DList* dlist_agregar_inicio (DList *puntos, int dato) {
 DList* dlist_agregar_final (DList *puntos, int dato) {
     // Crear un nuevo nodo
     DNodo *temp = malloc(sizeof(DNodo));
+    if(temp == NULL) {
+        return puntos;
+    }
 
     // Ajustar el nodo acorde
     temp->dato = dato;
