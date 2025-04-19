@@ -21,7 +21,7 @@ CDList* cdlist_crear_puntos();
 CDNodo* cdlist_crear(CDList **p);
 
 // Destrucción
-void cdlist_destruir(CDNodo *lista, CDList *p);
+void cdlist_destruir(CDNodo *lista, CDList *puntos);
 
 // Agregar
 CDList* cdlist_agregar_inicio(CDList *puntos, int dato);
