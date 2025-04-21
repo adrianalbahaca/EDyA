@@ -59,3 +59,23 @@ CDList* cdlist_agregar_final(CDList *puntos, int dato) {
         return puntos;
     }
 }
+
+void cdlist_recorrer(CDList *puntos, funcionVisitante f, CDListOrdenDeRecorrido r) {
+    if (puntos->primero == NULL && puntos->ultimo == NULL) return;
+
+    if(r == CDLIST_RECORRIDO_HACIA_DELANTE) {
+        CDNodo *temp = puntos->primero;
+        do {
+            f(temp->dato);
+            temp = temp->sig;
+        } while (temp != puntos->primero);
+    }
+    else if(r == CDLIST_RECORRIDO_HACIA_ATRAS) {
+        CDNodo *temp = puntos->ultimo;
+        do {
+            f(temp->dato);
+            temp = temp->ant;
+        } while(temp != puntos->ultimo);
+    }
+    return;
+}
