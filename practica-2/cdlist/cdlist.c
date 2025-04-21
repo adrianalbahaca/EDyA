@@ -16,8 +16,14 @@ CDNodo* cdlist_crear(CDList **puntos) {
 }
 
 void cdlist_destruir(CDNodo *lista, CDList *puntos) {
-    CDNodo *nodoAEliminar;
-    CDList *puntosAEliminar = puntos;
+    if (lista == NULL){
+        // Si la lista está vacía, sólo liberar puntos y retornar
+        free(puntos);
+        return;
+    }
+    else {
+        // TODO: Hacer los casos donde la lista tiene un elemento, o tiene más elementos
+    }
 }
 
 CDList* cdlist_agregar_inicio(CDList* puntos, int dato) {
