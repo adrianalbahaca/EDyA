@@ -1,35 +1,32 @@
 #include <stdlib.h>
 #include "dlist.h"
 
-DList* dlist_crear_puntos() {
+DList* dlist_crear() {
     // Reservar espacio en memoria para los puntos y retornar
     DList *puntos = malloc(sizeof(DList));
+    puntos->primero = NULL;
+    puntos->ultimo = puntos->primero;
     return puntos;
 }
 
-DNodo* dlist_crear(DList **puntos) {
-    // Apuntar a NULL y retornar lo mismo
-    DNodo *temp = NULL;
-    (*puntos)->primero = temp;
-    (*puntos)->ultimo = temp;
-    return temp;
-}
-
-void dlist_destruir(DNodo *lista, DList *puntos) {
-    // Mientras la lista tenga contenido, ir liberandolas una a una
-    DNodo *eliminar;
-    while(lista != NULL) {
-        eliminar = lista;
-        lista = lista->sig;
-        free(eliminar);
+void dlist_destruir(DList *puntos) {
+    // Si la lista está vacía, sólo eliminar puntos
+    if (puntos->primero == NULL && puntos->ultimo == NULL) {
+        free(puntos);
     }
-
-    free(puntos);
+    else { // Sino, ir nodo por nodo, separarlo de la lista y eliminarlo
+        puntos->ultimo = puntos->ultimo->sig;
+        for(DNodo *temp = puntos->primero; puntos->primero != NULL; temp = puntos->primero) {
+            puntos->primero = puntos->primero->sig;
+            free(temp);
+        }
+        free(puntos);
+    }
     return;
 }
 
-int dlist_vacia(DNodo *lista) {
-    return lista == NULL;
+int dlist_vacia(DList *puntos) {
+    return (puntos->primero == NULL && puntos->ultimo == NULL);
 }
 
 DList* dlist_agregar_inicio (DList *puntos, int dato) {
@@ -39,17 +36,22 @@ DList* dlist_agregar_inicio (DList *puntos, int dato) {
         return puntos;
     }
 
-    // Ajustar el temp
+    // Colocar dato en el coso
     temp->dato = dato;
-    temp->sig = puntos->primero;
-    temp->ant = NULL;
-    if(puntos->primero != NULL) {
-        puntos->primero->ant = temp;
-    }
-    if(puntos->ultimo == NULL) {
+    
+    // Si la lista está vacía, entonces
+    if(puntos->primero == NULL && puntos->ultimo == NULL) {
+        temp->sig = NULL;
+        temp->ant = NULL;
+        puntos->primero = temp;
         puntos->ultimo = temp;
     }
-    puntos->primero = temp;
+    else { // Sino, ajustar acorde
+        puntos->primero->ant = temp;
+        temp->sig = puntos->primero;
+        temp->ant = NULL;
+        puntos->primero = temp;
+    }
     return puntos;
 }
 
@@ -62,15 +64,20 @@ DList* dlist_agregar_final (DList *puntos, int dato) {
 
     // Ajustar el nodo acorde
     temp->dato = dato;
-    temp->sig = NULL;
-    temp->ant = puntos->ultimo;
-    if(puntos->ultimo != NULL) {
-        puntos->ultimo->sig = temp;
-    }
-    if(puntos->primero == NULL) {
+    
+    // Si la lista está vacía, agregar el nodo
+    if (puntos->primero == NULL && puntos->ultimo == NULL) {
+        temp->sig = NULL;
+        temp->ant = NULL;
         puntos->primero = temp;
+        puntos->ultimo = temp;
     }
-    puntos->ultimo = temp;
+    else { // Sino, ajustar punteros acorde
+        puntos->ultimo->sig = temp;
+        temp->ant = puntos->ultimo;
+        temp->sig = NULL;
+        puntos->ultimo = temp;
+    }
     return puntos;
 }
 

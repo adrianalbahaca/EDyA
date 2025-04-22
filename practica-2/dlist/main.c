@@ -7,8 +7,7 @@ static void imprimir_entero(int dato) {
 }
 
 int main(void) {
-    DList *puntos = dlist_crear_puntos();
-    DNodo *lista = dlist_crear(&puntos);
+    DList *puntos = dlist_crear();
 
     puntos = dlist_agregar_inicio(puntos, 5);
     puntos = dlist_agregar_inicio(puntos, 4);
@@ -16,6 +15,6 @@ int main(void) {
     dlist_recorrer(puntos, imprimir_entero, DLIST_RECORRIDO_HACIA_ADELANTE);
     puts("NULL");
 
-    dlist_destruir(lista, puntos);
+    dlist_destruir(puntos);
     return 0;
 }

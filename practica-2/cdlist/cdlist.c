@@ -23,6 +23,7 @@ void cdlist_destruir(CDNodo *lista, CDList *puntos) {
     }
     else {
         // TODO: Hacer los casos donde la lista tiene un elemento, o tiene más elementos
+        CDNodo *nodoAEliminar;
     }
 }
 

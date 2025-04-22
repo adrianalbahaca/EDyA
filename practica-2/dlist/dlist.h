@@ -22,17 +22,14 @@ typedef void (*funcionVisitante) (int dato);
 
 // Definir funciones básicas
 
-// Crear punteros a extremos de la lista vacío
-DList* dlist_crear_puntos();
-
-// Crear lista vacía
-DNodo* dlist_crear(DList **puntos);
+// Crear lista y punteros vacío
+DList* dlist_crear();
 
 // Destruir lista y puntos
-void dlist_destruir(DNodo *lista, DList *puntos);
+void dlist_destruir(DList *puntos);
 
 // Chequear si la lista está vacía
-int dlist_vacia(DNodo* lista);
+int dlist_vacia(DList *puntos);
 
 // Agregar un elemento al principio
 DList* dlist_agregar_inicio(DList *puntos, int dato);
