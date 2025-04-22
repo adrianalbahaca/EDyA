@@ -2,10 +2,10 @@
 #include "cdlist.h"
 
 int main(void) {
-    CDList *puntos = cdlist_crear_puntos();
-    CDNodo *lista = cdlist_crear(&puntos);
+    CDList *puntos = cdlist_crear();
 
     puntos = cdlist_agregar_inicio(puntos, 5);
-    puntos = cdlist_agregar_inicio(puntos, 7);
+
+    cdlist_destruir(puntos);
     return 0;
 }

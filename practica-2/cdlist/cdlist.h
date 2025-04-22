@@ -17,17 +17,16 @@ typedef void (*funcionVisitante) (int dato);
 
 // Definición de funciones
 // Creación
-CDList* cdlist_crear_puntos();
-CDNodo* cdlist_crear(CDList **p);
+CDList* cdlist_crear();
 
 // Destrucción
-void cdlist_destruir(CDNodo *lista, CDList *puntos);
+void cdlist_destruir(CDList *puntos);
 
 // Agregar
 CDList* cdlist_agregar_inicio(CDList *puntos, int dato);
 CDList* cdlist_agregar_final(CDList *puntos, int dato);
 
 // Recorrer
-CDList* cdlist_recorrer(CDList *puntos, CDNodo *lista, funcionVisitante f);
+CDList* cdlist_recorrer(CDList *puntos, funcionVisitante f);
 
 #endif
