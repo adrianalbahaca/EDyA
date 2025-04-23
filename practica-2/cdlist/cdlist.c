@@ -1,122 +1,86 @@
 #include <stdlib.h>
 #include "cdlist.h"
 
-CDList* cdlist_crear() {
-    CDList *temp = malloc(sizeof(CDList));
-    temp->primero = NULL;
-    temp->ultimo = temp->primero;
-    return temp;
+CDList cdlist_crear() {
+    return NULL;
 }
 
-void cdlist_destruir(CDList *puntos) {
-    // Si la lista está vacía, sólo liberar los puntos
-    if (puntos->primero == NULL && puntos->ultimo == NULL) {
-        free(puntos);
+void cdlist_destruir(CDList lista) {
+    // Si la lista está vacía, sólo liberar los lista
+    if (lista->sig == lista) {
+        free(lista);
     }
     else { // Sino, borrar cada nodo hasta llegar a uno solo
-        for(CDNodo *temp = puntos->primero; puntos->primero != NULL & puntos->ultimo != NULL; temp = puntos->primero) {
-            if(temp->sig = temp) {
-                puntos->primero = NULL;
-                puntos->ultimo = NULL;
-                free(temp);
-            }
-            else {
-                puntos->primero = temp->sig;
-                puntos->ultimo->sig = puntos->primero;
-                temp->sig = NULL;
-                puntos->primero->ant = puntos->ultimo;
-                temp->ant = NULL;
-                free(temp);
-            }
+        lista->ant->sig = NULL;
+        lista->ant = NULL;
+        for(CDList temp = lista; lista != NULL; temp = lista) {
+            lista = lista->sig;
+            free(temp);
         }
-        free(puntos);
+        free(lista);
     }
     return;
 }
 
-CDList* cdlist_agregar_inicio(CDList* puntos, int dato) {
+CDList cdlist_agregar_inicio(CDList lista, int dato) {
     CDNodo* temp = malloc(sizeof(CDNodo));
     if(temp == NULL) {
-        return puntos;
+        return lista;
     }
 
     temp->dato = dato;
 
-    if(puntos->primero == NULL && puntos->ultimo == NULL) {
+    if(lista == NULL) {
         // Nodo se conecta en sí
         temp->sig = temp;
         temp->ant = temp;
-
-        // Puntos apunta a ese nodo
-        puntos->primero = temp;
-        puntos->ultimo = temp;
     }
     else {
         // Conectar nodos de los extremos de las listas
-        puntos->primero->ant = NULL;
-        puntos->ultimo->sig = NULL;
+        temp->sig = lista;
+        temp->ant = lista->ant;
 
-        // Conectar nodo nuevo a la lista
-        temp->sig = puntos->primero;
-        puntos->primero->ant = temp;
-        puntos->primero = temp;
-
-        // Reconectar ciclo
-        puntos->primero->ant = puntos->ultimo;
-        puntos->ultimo->sig = puntos->primero;
-
+        lista->ant->sig = temp;
+        lista->ant = temp;
     }
-    return puntos;
+    lista = temp;
+    return lista;
 }
 
-CDList* cdlist_agregar_final(CDList *puntos, int dato) {
+CDList cdlist_agregar_final(CDList lista, int dato) {
     CDNodo *temp = malloc(sizeof(CDNodo));
     if(temp == NULL) {
-        return puntos;
+        return lista;
     }
     
     temp->dato = dato;
-    if(puntos->primero == NULL && puntos->ultimo == NULL) {
-        // Apuntar ambos punteros del nodo a sí mismo
+    if(lista == NULL) {
         temp->sig = temp;
         temp->ant = temp;
-
-        // Apuntar puntos al nodo
-        puntos->primero = temp;
-        puntos->ultimo = temp;
+        lista = temp;
     }
     else {
-        // Apuntar los punteros siguientes
-        puntos->ultimo->sig = temp;
-        puntos->primero->ant = temp;
-
-        // Apuntar los punteros del nodo nuevo
-        temp->ant = puntos->ultimo;
-        temp->sig = puntos->primero;
-
-        puntos->ultimo = temp;
+        lista->ant->sig = temp;
+        temp->ant = lista->ant;
+        lista->ant = temp;
+        temp->sig = lista;
     }
-
-    return puntos;
+    return lista;
 }
 
 // Ahora, la parte importante: Recorrer esta lista
-void cdlist_recorrer(CDList *puntos, funcionVisitante f, CDListOrdenDeRecorrido r) {
+void cdlist_recorrer(CDList lista, funcionVisitante f, CDListOrdenDeRecorrido r) {
     if(r == CDLIST_RECORRIDO_HACIA_ADELANTE) {
-        CDNodo *temp = puntos->primero;
-
+        CDList temp = lista;
         do {
             f(temp->dato);
-            temp = temp->sig;
-        } while (temp != puntos->primero);
+        } while(temp != lista);
     }
     else if (r == CDLIST_RECORRIDO_HACIA_ATRAS){
-        CDNodo *temp = puntos->ultimo;
-
+        CDList temp = lista->ant;
         do {
             f(temp->dato);
-            temp = temp->sig;
-        } while(temp != puntos->ultimo);
+        } while(temp != lista->ant);
     }
     return;
 }

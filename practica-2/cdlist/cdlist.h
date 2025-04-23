@@ -8,10 +8,7 @@ typedef struct _DNodo {
     struct _DNodo *ant;
 } CDNodo;
 
-typedef struct {
-    CDNodo *primero;
-    CDNodo *ultimo;
-} CDList;
+typedef CDNodo* CDList;
 
 typedef enum {
     CDLIST_RECORRIDO_HACIA_ADELANTE,
@@ -22,16 +19,16 @@ typedef void (*funcionVisitante) (int dato);
 
 // Definición de funciones
 // Creación
-CDList* cdlist_crear();
+CDList cdlist_crear();
 
 // Destrucción
-void cdlist_destruir(CDList *puntos);
+void cdlist_destruir(CDList lista);
 
 // Agregar
-CDList* cdlist_agregar_inicio(CDList *puntos, int dato);
-CDList* cdlist_agregar_final(CDList *puntos, int dato);
+CDList cdlist_agregar_inicio(CDList lista, int dato);
+CDList cdlist_agregar_final(CDList lista, int dato);
 
 // Recorrer
- void cdlist_recorrer(CDList *puntos, funcionVisitante f, CDListOrdenDeRecorrido r);
+ void cdlist_recorrer(CDList lista, funcionVisitante f, CDListOrdenDeRecorrido r);
 
 #endif

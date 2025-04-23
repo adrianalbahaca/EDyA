@@ -7,16 +7,14 @@ void imprimir_entero(int dato) {
 }
 
 int main(void) {
-    CDList *puntos = cdlist_crear();
+    CDList lista = cdlist_crear();
+    lista = cdlist_agregar_final(lista, 5);
+    lista = cdlist_agregar_inicio(lista, 7);
+    lista = cdlist_agregar_final(lista, 8);
 
-    puntos = cdlist_agregar_inicio(puntos, 5);
-    puntos = cdlist_agregar_inicio(puntos, 6);
-
-    cdlist_recorrer(puntos, imprimir_entero, CDLIST_RECORRIDO_HACIA_ADELANTE);
-    puts("NULL");
-    cdlist_recorrer(puntos, imprimir_entero, CDLIST_RECORRIDO_HACIA_ATRAS);
-    puts("NULL");
-
-    cdlist_destruir(puntos);
+    cdlist_recorrer(lista, imprimir_entero, CDLIST_RECORRIDO_HACIA_ADELANTE);
+    cdlist_recorrer(lista, imprimir_entero, CDLIST_RECORRIDO_HACIA_ATRAS);
+    
+    cdlist_destruir(lista);
     return 0;
 }
