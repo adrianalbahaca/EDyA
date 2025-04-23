@@ -37,4 +37,9 @@ void contacto_destruir(Contacto *contacto);
  */
 void contacto_imprimir(Contacto *contacto);
 
+/**
+ * Comparar la edad como requisito
+ */
+int contacto_edad_comparar(Contacto *contacto);
+
 #endif /* __CONTACTO_H__ */

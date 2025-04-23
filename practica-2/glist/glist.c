@@ -52,7 +52,7 @@ GList glist_filtrar(GList list, FuncionCopia copy, Predicado pred) {
 
   // Recorrer la lista original para aplicar el predicado
   for(GList temp = list; temp != NULL; temp = temp->next) {
-    if(pred(temp->data)) { // Si el predicado es verdadero, copiar a nodo nuevo
+    if(pred(temp)) { // Si el predicado es verdadero, copiar a nodo nuevo
       nuevo = glist_agregar_inicio(temp, temp->data, copy);
     }
   }

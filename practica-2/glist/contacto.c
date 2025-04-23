@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define EDAD 60
+
 /**
  * Crea un nuevo contacto.
  */
@@ -52,4 +54,8 @@ void contacto_destruir(Contacto *contacto) {
  */
 void contacto_imprimir(Contacto *contacto) {
   printf("%s, %s, %d.\n", contacto->nombre, contacto->tel, contacto->edad);
+}
+
+int contacto_edad_comparar(Contacto *contacto) {
+  return (contacto->edad > EDAD);
 }

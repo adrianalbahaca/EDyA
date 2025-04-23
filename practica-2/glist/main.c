@@ -23,6 +23,9 @@ int main() {
   printf("Lista:\n");
   glist_recorrer(lista, (FuncionVisitante)contacto_imprimir);
 
+  glist_filtrar(lista, (FuncionCopia)contacto_copia, (Predicado)contacto_edad_comparar);
+
+  glist_recorrer(lista, (FuncionVisitante)contacto_imprimir);
   glist_destruir(lista, (FuncionDestructora)contacto_destruir);
 
   return 0;
