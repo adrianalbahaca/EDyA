@@ -47,9 +47,15 @@ void glist_recorrer(GList list, FuncionVisitante visit) {
 }
 
 GList glist_filtrar(GList list, FuncionCopia copy, Predicado pred) {
-  for(GList temp = list; temp = NULL; temp = temp->next) {
-    if(pred(temp->data)) {
-      copy(temp->data);
+  // Crear lista vacía
+  GList nuevo = glist_crear();
+
+  // Recorrer la lista original para aplicar el predicado
+  for(GList temp = list; temp != NULL; temp = temp->next) {
+    if(pred(temp->data)) { // Si el predicado es verdadero, copiar a nodo nuevo
+      nuevo = glist_agregar_inicio(temp, temp->data, copy);
     }
   }
+
+  return nuevo;
 }
