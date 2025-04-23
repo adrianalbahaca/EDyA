@@ -12,9 +12,9 @@ int main(void) {
     lista = cdlist_agregar_inicio(lista, 5);
 
     cdlist_recorrer(lista, imprimir_entero, CDLIST_RECORRIDO_HACIA_ADELANTE);
-    puts("NULL");
+    puts("");
     cdlist_recorrer(lista, imprimir_entero, CDLIST_RECORRIDO_HACIA_ATRAS);
-    puts("NULL");
+    puts("");
 
     cdlist_destruir(lista);
     return 0;
