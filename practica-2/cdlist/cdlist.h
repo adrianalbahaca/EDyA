@@ -26,7 +26,6 @@ void cdlist_destruir(CDList lista);
 
 // Agregar
 CDList cdlist_agregar_inicio(CDList lista, int dato);
-CDList cdlist_agregar_final(CDList lista, int dato);
 
 // Recorrer
  void cdlist_recorrer(CDList lista, funcionVisitante f, CDListOrdenDeRecorrido r);

@@ -8,13 +8,14 @@ void imprimir_entero(int dato) {
 
 int main(void) {
     CDList lista = cdlist_crear();
-    lista = cdlist_agregar_final(lista, 5);
     lista = cdlist_agregar_inicio(lista, 7);
-    lista = cdlist_agregar_final(lista, 8);
+    lista = cdlist_agregar_inicio(lista, 5);
 
     cdlist_recorrer(lista, imprimir_entero, CDLIST_RECORRIDO_HACIA_ADELANTE);
+    puts("NULL");
     cdlist_recorrer(lista, imprimir_entero, CDLIST_RECORRIDO_HACIA_ATRAS);
-    
+    puts("NULL");
+
     cdlist_destruir(lista);
     return 0;
 }
