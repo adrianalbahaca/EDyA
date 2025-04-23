@@ -13,6 +13,11 @@ typedef struct {
     CDNodo *ultimo;
 } CDList;
 
+typedef enum {
+    CDLIST_RECORRIDO_HACIA_ADELANTE,
+    CDLIST_RECORRIDO_HACIA_ATRAS
+} CDListOrdenDeRecorrido;
+
 typedef void (*funcionVisitante) (int dato);
 
 // Definición de funciones
@@ -27,6 +32,6 @@ CDList* cdlist_agregar_inicio(CDList *puntos, int dato);
 CDList* cdlist_agregar_final(CDList *puntos, int dato);
 
 // Recorrer
-CDList* cdlist_recorrer(CDList *puntos, funcionVisitante f);
+ void cdlist_recorrer(CDList *puntos, funcionVisitante f, CDListOrdenDeRecorrido r);
 
 #endif

@@ -52,35 +52,71 @@ CDList* cdlist_agregar_inicio(CDList* puntos, int dato) {
         puntos->ultimo = temp;
     }
     else {
-        // Conectar nodos diguientes
-        puntos->ultimo->sig = temp;
+        // Conectar nodos de los extremos de las listas
+        puntos->primero->ant = NULL;
+        puntos->ultimo->sig = NULL;
+
+        // Conectar nodo nuevo a la lista
         temp->sig = puntos->primero;
-
-        // Conectar nodos anteriores
         puntos->primero->ant = temp;
-        temp->ant = puntos->ultimo;
-
-        // Cambiar extremos
         puntos->primero = temp;
+
+        // Reconectar ciclo
+        puntos->primero->ant = puntos->ultimo;
+        puntos->ultimo->sig = puntos->primero;
+
     }
     return puntos;
 }
 
 CDList* cdlist_agregar_final(CDList *puntos, int dato) {
-    CDNodo *nuevoNodo = malloc(sizeof(CDNodo));
-    nuevoNodo->dato = dato;
+    CDNodo *temp = malloc(sizeof(CDNodo));
+    if(temp == NULL) {
+        return puntos;
+    }
+    
+    temp->dato = dato;
     if(puntos->primero == NULL && puntos->ultimo == NULL) {
         // Apuntar ambos punteros del nodo a sí mismo
-        nuevoNodo->sig = nuevoNodo;
-        nuevoNodo->ant = nuevoNodo;
+        temp->sig = temp;
+        temp->ant = temp;
 
         // Apuntar puntos al nodo
-        puntos->primero = nuevoNodo;
-        puntos->ultimo = nuevoNodo;
+        puntos->primero = temp;
+        puntos->ultimo = temp;
     }
     else {
+        // Apuntar los punteros siguientes
+        puntos->ultimo->sig = temp;
+        puntos->primero->ant = temp;
 
+        // Apuntar los punteros del nodo nuevo
+        temp->ant = puntos->ultimo;
+        temp->sig = puntos->primero;
+
+        puntos->ultimo = temp;
     }
 
     return puntos;
+}
+
+// Ahora, la parte importante: Recorrer esta lista
+void cdlist_recorrer(CDList *puntos, funcionVisitante f, CDListOrdenDeRecorrido r) {
+    if(r == CDLIST_RECORRIDO_HACIA_ADELANTE) {
+        CDNodo *temp = puntos->primero;
+
+        do {
+            f(temp->dato);
+            temp = temp->sig;
+        } while (temp != puntos->primero);
+    }
+    else if (r == CDLIST_RECORRIDO_HACIA_ATRAS){
+        CDNodo *temp = puntos->ultimo;
+
+        do {
+            f(temp->dato);
+            temp = temp->sig;
+        } while(temp != puntos->ultimo);
+    }
+    return;
 }

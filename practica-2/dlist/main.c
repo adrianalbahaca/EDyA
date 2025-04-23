@@ -3,7 +3,7 @@
 #include "dlist.h"
 
 static void imprimir_entero(int dato) {
-    printf("%d->", dato);
+    printf("%d<->", dato);
 }
 
 int main(void) {
