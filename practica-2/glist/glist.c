@@ -59,3 +59,6 @@ GList glist_filtrar(GList list, FuncionCopia copy, Predicado pred) {
 
   return nuevo;
 }
+
+// De aqui en adelante, son funciones que he creado
+
