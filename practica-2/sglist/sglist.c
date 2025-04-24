@@ -32,37 +32,11 @@ void sglist_recorrer(SGList lista, FuncionVisitante f) {
 
 // TODO: Insertar un elemento a la lista, manteniendo el orden
 SGList sglist_insertar(SGList lista, FuncionCopia copiar, FuncionComparadora comparar, void *data) {
-    SGNodo *temp = malloc(sizeof(SGNodo));
-    assert(temp);
+    SGList temp = malloc(sizeof(SGNodo));
+    assert(temp != NULL);
     temp->dato = copiar(data);
 
-    // Si la lista es vacía, retornar nada más el puntero
-    if (lista == NULL) {
-        return temp;
-    }
-
-    // Si la comparación es True para el primer elemento de la lista, añadir al inicio
-    if(comparar(lista->sig, temp)) {
-        temp->sig = lista;
-        return temp;
-    }
-
-    // Sino, añadir en el medio
-    for(SGNodo *l = lista; l != NULL; l = l->sig) {
-        if(comparar(l->sig, temp)) {
-            temp->sig = l->sig;
-            l->sig = temp;
-            return lista;
-        }
-    }
-
-    // Sino, añadir al final
-    SGNodo *final = lista;
-    for(;final->sig != NULL; final = final->sig);
-    final->sig = temp;
-    temp->sig = NULL;
-    return lista;
-
+    // TODO: Agregar datos a la función nueva sin causar seg faults o perder orden con la función comparadora
 }
 
 // TODO: Buscar y conseguir un elemento a la lista

@@ -59,3 +59,7 @@ void contacto_imprimir(Contacto *contacto) {
 int contacto_edad_comparar(Contacto *contacto) {
   return (contacto->edad > EDAD);
 }
+
+int contacto_menor(Contacto *c1, Contacto *c2) {
+  return(c1->edad > c2->edad);
+}

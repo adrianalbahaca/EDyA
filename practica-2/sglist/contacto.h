@@ -42,4 +42,9 @@ void contacto_imprimir(Contacto *contacto);
  */
 int contacto_edad_comparar(Contacto *contacto);
 
+/**
+ * Ver si el contacto 1 es menor al contacto 2
+ */
+int contacto_menor(Contacto *c1, Contacto *c2);
+
 #endif /* __CONTACTO_H__ */

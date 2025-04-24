@@ -5,7 +5,7 @@
 typedef void (*FuncionDestructora)(void *dato);
 typedef void *(*FuncionCopia)(void *dato);
 typedef void (*FuncionVisitante)(void *dato);
-typedef int (*FuncionComparadora) (void *dato1, void *dato2);
+typedef int (*FuncionComparadora)(void *dato1, void *dato2);
 
 // Definición de estructura
 typedef struct _SGNodo {
