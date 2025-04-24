@@ -1,4 +1,5 @@
 #include "sglist.h"
+#include <assert.h>
 #include <stdlib.h>
 
 // Retornar una lista vacía
@@ -29,14 +30,51 @@ void sglist_recorrer(SGList lista, FuncionVisitante f) {
     }
 }
 
-// TODO: Insertar un elemento a la lista, manteniendo en el hombre
-SGList sglist_insertar(SGList lista, FuncionCopia copiar, FuncionComparadora comparar) {
-    
+// TODO: Insertar un elemento a la lista, manteniendo el orden
+SGList sglist_insertar(SGList lista, FuncionCopia copiar, FuncionComparadora comparar, void *data) {
+    SGNodo *temp = malloc(sizeof(SGNodo));
+    assert(temp);
+    temp->dato = copiar(data);
+
+    // Si la lista es vacía, retornar nada más el puntero
+    if (lista == NULL) {
+        return temp;
+    }
+
+    // Si la comparación es True para el primer elemento de la lista, añadir al inicio
+    if(comparar(lista->sig, temp)) {
+        temp->sig = lista;
+        return temp;
+    }
+
+    // Sino, añadir en el medio
+    for(SGNodo *l = lista; l != NULL; l = l->sig) {
+        if(comparar(l->sig, temp)) {
+            temp->sig = l->sig;
+            l->sig = temp;
+            return lista;
+        }
+    }
+
+    // Sino, añadir al final
+    SGNodo *final = lista;
+    for(;final->sig != NULL; final = final->sig);
+    final->sig = temp;
+    temp->sig = NULL;
+    return lista;
+
 }
 
 // TODO: Buscar y conseguir un elemento a la lista
-int sglist_buscar(SGList lista, FuncionComparadora comparar) {
+int sglist_buscar(SGList lista, void *data, FuncionComparadora comparar) {
+    // Usar un loop para conseguir el nodo que se busca
+    for(SGNodo *temp = lista; temp != NULL; temp = temp->sig) {
+        if(comp(temp, data)) {
+            return 1;
+        }
+    }
 
+    return 0;
 }
 
 // TODO: Construir una lista ordenada a partir de un arreglo

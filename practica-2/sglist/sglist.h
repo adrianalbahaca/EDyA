@@ -5,7 +5,7 @@
 typedef void (*FuncionDestructora)(void *dato);
 typedef void *(*FuncionCopia)(void *dato);
 typedef void (*FuncionVisitante)(void *dato);
-typedef int (*FuncionComparadora) (void *dato);
+typedef int (*FuncionComparadora) (void *dato1, void *dato2);
 
 // Definición de estructura
 typedef struct _SGNodo {
@@ -38,12 +38,12 @@ void sglist_recorrer(SGList lista, FuncionVisitante f);
 /**
  * Insertar un nodo, manteniendo el orden de la lista
  */
-SGList sglist_insertar(SGList lista, FuncionCopia copiar, FuncionComparadora comparar);
+SGList sglist_insertar(SGList lista, FuncionCopia copiar, FuncionComparadora comparar, void *data);
 
 /**
  * Buscar un elemento de una lista
  */
-int sglist_buscar(SGList lista, FuncionComparadora comparar);
+int sglist_buscar(SGList lista, void *data, FuncionComparadora comparar);
 
 /**
  * Construir una lista ordenada a partir de un arreglo de elementos
