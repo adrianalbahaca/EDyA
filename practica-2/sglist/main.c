@@ -1,11 +1,11 @@
 #include "contacto.h"
-#include "glist.h"
+#include "sglist.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
 
-  GList lista = sglist_crear();
+  SGList lista = sglist_crear();
   Contacto *contactos[6];
   contactos[0] = contacto_crear("Pepe Argento", "3412695452", 61);
   contactos[1] = contacto_crear("Moni Argento", "3412684759", 60);
@@ -14,19 +14,11 @@ int main() {
   contactos[4] = contacto_crear("Maria Elena Fuseneco", "3416874594", 59);
   contactos[5] = contacto_crear("Dardo Fuseneco", "3416894526", 64);
 
-  for (int i = 0; i < 6; ++i) {
-    lista =
-        glist_agregar_inicio(lista, contactos[i], (FuncionCopia)contacto_copia);
-    contacto_destruir(contactos[i]);
+  for(int i = 0; i < 6; i++) {
+    lista = sglist_insertar(lista, (FuncionCopia)contacto_copia, (FuncionComparadora)contacto_comparar, contactos[i]);
   }
 
-  printf("Lista:\n");
-  glist_recorrer(lista, (FuncionVisitante)contacto_imprimir);
-
-  glist_filtrar(lista, (FuncionCopia)contacto_copia, (Predicado)contacto_edad_comparar);
-
-  glist_recorrer(lista, (FuncionVisitante)contacto_imprimir);
-  glist_destruir(lista, (FuncionDestructora)contacto_destruir);
-
+  sglist_destruir(lista, (FuncionDestructora)contacto_destruir);
+  
   return 0;
 }

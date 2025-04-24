@@ -8,7 +8,7 @@ SGList sglist_crear() {
 }
 
 // Destruir una lista
-SGList sglist_destruir(SGList lista, FuncionDestructora destruir) {
+void sglist_destruir(SGList lista, FuncionDestructora destruir) {
     SGNodo *nodoAEliminar;
     while(lista != NULL) {
         nodoAEliminar = lista;
@@ -69,7 +69,7 @@ SGList sglist_insertar(SGList lista, FuncionCopia copiar, FuncionComparadora com
 int sglist_buscar(SGList lista, void *data, FuncionComparadora comparar) {
     // Usar un loop para conseguir el nodo que se busca
     for(SGNodo *temp = lista; temp != NULL; temp = temp->sig) {
-        if(comp(temp, data)) {
+        if(comparar(temp, data)) {
             return 1;
         }
     }
