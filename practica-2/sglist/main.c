@@ -15,12 +15,11 @@ int main() {
   contactos[5] = contacto_crear("Dardo Fuseneco", "3416894526", 64);
 
   for(int i = 0; i < 6; i++) {
-    lista = sglist_insertar(lista, (FuncionCopia)contacto_copia, (FuncionComparadora)contacto_menor, contactos[i]);
+    lista = sglist_insertar(lista, contactos[i], (FuncionCopia)contacto_copia, (FuncionComparadora)contacto_comparar);
     contacto_destruir(contactos[i]);
   }
 
   sglist_recorrer(lista, (FuncionVisitante)contacto_imprimir);
-
   sglist_destruir(lista, (FuncionDestructora)contacto_destruir);
   
   return 0;

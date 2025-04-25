@@ -5,7 +5,7 @@
 
 int main() {
 
-  GList lista = sglist_crear();
+  GList lista = glist_crear();
   Contacto *contactos[6];
   contactos[0] = contacto_crear("Pepe Argento", "3412695452", 61);
   contactos[1] = contacto_crear("Moni Argento", "3412684759", 60);

@@ -38,7 +38,7 @@ void sglist_recorrer(SGList lista, FuncionVisitante f);
 /**
  * Insertar un nodo, manteniendo el orden de la lista
  */
-SGList sglist_insertar(SGList lista, FuncionCopia copiar, FuncionComparadora comparar, void *data);
+SGList sglist_insertar(SGList lista, void *data, FuncionCopia copiar, FuncionComparadora comparar);
 
 /**
  * Buscar un elemento de una lista

@@ -1,6 +1,7 @@
 #include "sglist.h"
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 // Retornar una lista vacía
 SGList sglist_crear() {
@@ -25,18 +26,48 @@ int sglist_vacia(SGList lista) {
 
 // Recorrer la lista con una función visitante
 void sglist_recorrer(SGList lista, FuncionVisitante f) {
-    for(SGNodo *temp = lista; temp != NULL; temp = temp->sig) {
+    for(SGList temp = lista; temp != NULL; temp = temp->sig) {
         f(temp->dato);
     }
 }
 
 // TODO: Insertar un elemento a la lista, manteniendo el orden
-SGList sglist_insertar(SGList lista, FuncionCopia copiar, FuncionComparadora comparar, void *data) {
-    SGList temp = malloc(sizeof(SGNodo));
-    assert(temp != NULL);
-    temp->dato = copiar(data);
+SGList sglist_insertar(SGList lista, void *data, FuncionCopia copiar, FuncionComparadora comparar) {
+    // Crear nodo nuevo
+    SGList nodo = malloc(sizeof(SGNodo));
+    assert(nodo != NULL);
 
-    // TODO: Agregar datos a la función nueva sin causar seg faults o perder orden con la función comparadora
+    // Agregar datos al nodo
+    nodo->dato = copiar(data);
+
+    if (lista == NULL) { // Si la lista está vacía, sólo retornar el nodo
+        lista = nodo;
+        nodo->sig = NULL;
+        return lista;
+    }
+    else if(comparar(lista, nodo) < 0) { // Sino, se ve si va en el principio de la lista
+        nodo->sig = lista;
+        return nodo;
+    }
+    else { // Sino, se recorre hasta colocar en el medio o al final
+        SGList temp = lista->sig;
+        SGList ant = lista;
+        while(temp != NULL) {
+            if(comparar(temp, nodo) < 0) {
+                ant->sig = nodo;
+                nodo->sig = temp;
+                return lista;
+            }
+
+            temp = temp->sig;
+            ant = ant->sig;
+        }
+
+        // Si se llegó al final, añadir y ya está
+        ant->sig = nodo;
+        nodo->sig = temp;
+        return lista;
+    }
 }
 
 // TODO: Buscar y conseguir un elemento a la lista
@@ -47,7 +78,6 @@ int sglist_buscar(SGList lista, void *data, FuncionComparadora comparar) {
             return 1;
         }
     }
-
     return 0;
 }
 
