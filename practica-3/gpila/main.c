@@ -29,6 +29,10 @@ int main(void) {
     pila_tope(pila, (FuncionVisitante)contacto_imprimir);
     printf("----\n");
 
+    // Revertir una pila
+    pila = lista_invertir(pila, (FuncionCopia)contacto_copia, (FuncionDestructora)contacto_destruir);
+    glist_recorrer(pila, (FuncionVisitante)contacto_imprimir);
+
     pila_destruir(pila, (FuncionDestructora)contacto_destruir);
     return 0;
 }

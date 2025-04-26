@@ -40,4 +40,10 @@ Pila pila_desapilar(Pila pila, FuncionDestructora destruir);
  */
 void pila_imprimir(Pila pila, FuncionVisitante imprimir);
 
+/**
+ * Revertir una lista usando pilas
+ */
+
+GList lista_invertir(Pila pila, FuncionCopia copiar, FuncionDestructora destruir);
+
 #endif /* __G_PILA_H__ */

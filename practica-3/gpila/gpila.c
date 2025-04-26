@@ -35,6 +35,9 @@ Pila pila_apilar(Pila pila, void *dato, FuncionCopia copiar) {
 
 // Desapilar un elemento de la pila
 Pila pila_desapilar(Pila pila, FuncionDestructora destruir) {
+    if(pila == NULL){
+        return pila;
+    }
     Pila temp = pila;
     pila = pila->next;
     temp->next = NULL;
@@ -46,4 +49,13 @@ Pila pila_desapilar(Pila pila, FuncionDestructora destruir) {
 void pila_imprimir(Pila pila, FuncionVisitante imprimir) {
     glist_recorrer(pila, (FuncionVisitante)imprimir);
     return;
+}
+
+Pila lista_invertir(Pila pila, FuncionCopia copiar, FuncionDestructora destruir) {
+    Pila lista = NULL;
+    while(pila != NULL) {
+        lista = pila_apilar(lista, pila->data, (FuncionCopia)copiar);
+        pila = pila_desapilar(pila, (FuncionDestructora)destruir);
+    }
+    return lista;
 }
