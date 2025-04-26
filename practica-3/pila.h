@@ -9,9 +9,9 @@ typedef struct _Pila{
 } Pila;
 
 /**
- * Crear una pila
+ * Crear una pila con cierta capacidad
  */
-Pila* pila_crear(int r);
+Pila* pila_crear(int capacidad);
 
 /**
  * Destruir una pila

@@ -16,6 +16,7 @@ ArregloEnteros* arreglo_enteros_crear(int capacidad) {
 
 // Destruir un arreglo de enteros
 void arreglo_enteros_destruir(ArregloEnteros *arreglo) {
+    free(arreglo->direccion);
     free(arreglo);
     return;
 }
@@ -65,4 +66,29 @@ void arreglo_enteros_ajustar(ArregloEnteros *arreglo, int capacidad) {
 
     return;
 
+}
+
+void arreglo_enteros_insertar(ArregloEnteros *arreglo, int pos, int dato) {
+    // Ajustar el tamaño del arreglo con la función hecha
+    arreglo->direccion = realloc(arreglo->direccion, (arreglo->capacidad + 1) * sizeof(int));
+
+    // Mover los elementos a la derecha
+    for(int i = (arreglo->capacidad); i > pos; i--) {
+        arreglo->direccion[i] = arreglo->direccion[i + 1];
+    }
+
+    // Agregar elemento en la posición deseada
+    arreglo->direccion[pos] = dato;
+    arreglo->capacidad = (arreglo->capacidad + 1);
+}
+
+void arreglo_enteros_eliminar(ArregloEnteros *arreglo, int pos) {
+    // Mover los elementos a la izquierda
+    for(int i = pos; i < (arreglo->capacidad); i++) {
+        arreglo->direccion[i] = arreglo->direccion[i + 1];
+    }
+
+    // Cambiar capacidad del arreglo
+    arreglo->capacidad = (arreglo->capacidad) - 1;
+    arreglo->direccion = realloc(arreglo->direccion, (arreglo->capacidad) * sizeof(int));
 }

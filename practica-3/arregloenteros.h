@@ -43,4 +43,14 @@ void arreglo_enteros_destruir(ArregloEnteros *arreglo);
   */
  void arreglo_enteros_ajustar(ArregloEnteros *arreglo, int capacidad);
 
+ /**
+  * Insertar un elemento en el array y mover el resto de los elementos a la derecha
+  */
+ void arreglo_enteros_insertar(ArregloEnteros *arreglo, int pos, int dato);
+
+ /**
+  * Eliminar un elemento del array y mover el resto de los elementos a la izquierda
+  */
+ void arreglo_enteros_eliminar(ArregloEnteros *arreglo, int pos);
+
 #endif /* __ARREGLO_ENTEROS_H__*/
