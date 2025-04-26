@@ -26,7 +26,7 @@ void arreglo_enteros_destruir(ArregloEnteros *arreglo);
  /**
   * Escribir un elemento a un arreglo de elementos
   */
- void arreglo_enteros_escribir(ArregloEnteros **arreglo, int pos, int dato);
+ void arreglo_enteros_escribir(ArregloEnteros *arreglo, int pos, int dato);
 
  /**
   * Devolver la capacidad de un arreglo de enteros
@@ -38,4 +38,9 @@ void arreglo_enteros_destruir(ArregloEnteros *arreglo);
   */
  void arreglo_enteros_imprimir(ArregloEnteros *arreglo);
 
-#endif
+ /**
+  * Ajustar el tamaño del arreglo. Si el tamaño nuevo es menor que el viejo, truncar el contenido
+  */
+ void arreglo_enteros_ajustar(ArregloEnteros *arreglo, int capacidad);
+
+#endif /* __ARREGLO_ENTEROS_H__*/
