@@ -1,6 +1,7 @@
 #include "btree.h"
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 struct _BTNodo {
   int dato;
@@ -76,16 +77,13 @@ void btree_recorrer(BTree arbol, BTreeOrdenDeRecorrido orden, FuncionVisitante v
 int btree_nnodos(BTree arbol) {
   // Retornar la cantidad de nodos en el arbol
   // Caso base: Punto nulo del arbol
-  if(btree_empty(arbol)) {
+  if(arbol == NULL) {
     return 0;
   }
 
   // Paso inductivo: Contar elemento del árbol
   else {
-    int i = 0;
-    i += btree_nnodos(arbol->left);
-    i += btree_nnodos(arbol->right);
-    return i;
+    return (1 + (btree_nnodos(arbol->left)) + (btree_nnodos(arbol->right)));
   }
 }
 
@@ -93,17 +91,17 @@ int btree_nnodos(BTree arbol) {
  * Buscar elemento int en un arbol binario
  */
 int btree_buscar(BTree arbol, int dato) {
-  // Caso base 1: Se consigue el dato
+  // Caso base 1: El arbol es vacio
+  if (btree_empty(arbol)) {
+    return 0;
+  }
+  // Caso base 2: Se consigue el dato
   if(arbol->dato == dato) {
     return 1;
   }
-  // Caso base 2: Se llega a una hoja
-  else if(btree_empty(arbol)) {
-    return 0;
-  }
-  // Paso inductivo 1: Buscar a la izquierda
+  // Paso inductivo: Buscar en los subárboles
   else {
-    return (btree_buscar(arbol->left, dato) + btree_buscar(arbol->right, dato));
+    return btree_buscar(arbol->left, dato) || btree_buscar(arbol->right, dato);
   }
 }
 
@@ -111,17 +109,17 @@ int btree_buscar(BTree arbol, int dato) {
  * Copiar un arbol en otro nuevo
  */
 BTree btree_copiar(BTree arbol) {
-  // Caso base: Nodo hoja
-  if(arbol->left == NULL && arbol->right == NULL) {
-    return btree_unir(arbol->dato, btree_crear(), btree_crear());
+  // Caso base: Árbol vacío
+  if (btree_empty(arbol)) {
+    return NULL;
   }
-
-  // Paso inductivo: Unir subarbol izquierdo y derecho
+  // Paso inductivo: Unir árboles
   else {
-    BTree l = btree_copiar(arbol->left);
-    BTree r = btree_copiar(arbol->right);
-    return btree_unir(arbol->dato, l, r);
+    BTree left = btree_copiar(arbol->left);
+    BTree right = btree_copiar(arbol->right);
+    return (btree_unir(arbol->dato, left, right));
   }
+  
 }
 
 /**
