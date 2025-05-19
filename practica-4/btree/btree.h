@@ -65,7 +65,7 @@ int btree_nnodos_profundidad(BTree arbol, int prof);
 /**
  * Profundidad de un dato. Si no está, retornar -1
  */
-int btree_profundida(BTree arbol);
+int btree_profundidad(BTree arbol, int dato);
 
 /**
  * Sumar todos los elementos

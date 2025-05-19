@@ -41,6 +41,15 @@ int main() {
 
   // Test de altura
   printf("La altura del árbol 1 es: %d\n", btree_altura(raiz));
+
+  // Test de profundidad
+  printf("La cant. de nodos en la profundidad %d es %d\n", 1, btree_nnodos_profundidad(raiz, 1));
+
+  // Test de profundidad de un dato
+  printf("La profundidad de %d es %d\n", 4, btree_profundidad(raiz, 4));
+
+  // Test de suma total
+  printf("La suma completa del árbol 1 es: %d\n", btree_sumar(raiz));
   
   btree_destruir(raiz);
 
