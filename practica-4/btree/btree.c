@@ -70,6 +70,9 @@ void btree_recorrer(BTree arbol, BTreeOrdenDeRecorrido orden, FuncionVisitante v
   return;
 }
 
+/**
+ * Cantidad de nodos en un árbol
+ */
 int btree_nnodos(BTree arbol) {
   // Retornar la cantidad de nodos en el arbol
   // Caso base: Punto nulo del arbol
@@ -86,28 +89,27 @@ int btree_nnodos(BTree arbol) {
   }
 }
 
+/**
+ * Buscar elemento int en un arbol binario
+ */
 int btree_buscar(BTree arbol, int dato) {
   // Caso base 1: Se consigue el dato
   if(arbol->dato == dato) {
     return 1;
   }
-
   // Caso base 2: Se llega a una hoja
   else if(btree_empty(arbol)) {
     return 0;
   }
-
-  // Buscar a la izquierda
-  if(btree_buscar(arbol->left, dato)) {
-    return 1;
-  }
-
-  // Buscar a la derecha
-  if(btree_buscar(arbol->right, dato)) {
-    return 1;
+  // Paso inductivo 1: Buscar a la izquierda
+  else {
+    return (btree_buscar(arbol->left, dato) + btree_buscar(arbol->right, dato));
   }
 }
 
+/**
+ * Copiar un arbol en otro nuevo
+ */
 BTree btree_copiar(BTree arbol) {
   // Caso base: Nodo hoja
   if(arbol->left == NULL && arbol->right == NULL) {
@@ -122,18 +124,80 @@ BTree btree_copiar(BTree arbol) {
   }
 }
 
+/**
+ * Altura de un árbol
+ */
 int btree_altura(BTree arbol) {
-  
+  // Caso base: árbol vacío
+  if(btree_empty(arbol)) {
+    return 0;
+  }
+
+  // Paso inductivo: Recorrer las ramas y retornar el que sea mayor
+  int left = btree_altura(arbol->left);
+  int right = btree_altura(arbol->right);
+  if (left > right) {
+    return (left + 1);
+  }
+  else {
+    return (right + 1);
+  }
 }
 
+/**
+ * Profundidad de un nodo
+ */
 int btree_nnodos_profundidad(BTree arbol, int prof) {
   // Retorna la cant. de nodos en una cierta profundidad
+  // Caso base: Profundidad 0
+  if(prof == 0) {
+    return 1;
+  }
+  // Caso base 2: Árbol vacío
+  else if (btree_empty(arbol)) {
+    return 0;
+  }
+  // Caso recursivo: Calcular cant. de nodos
+  else {
+    int nodos_left = btree_nnodos_profundidad(arbol->left, (prof - 1));
+    int nodos_right = btree_nnodos_profundidad(arbol->right, (prof - 1));
+    return (nodos_left + nodos_right);
+  }
 }
 
+/**
+ * Profundidad de un árbol
+ */
 int btree_profundidad(BTree arbol, int dato) {
   // Retorna la profundidad de donde está el dato. Si no está, retorna -1
+  // Caso base: Se encuentra el dato
+  if (arbol->dato == dato) {
+    return 0;
+  }
+  // Caso base 2: Árbol vacío
+  if(btree_empty(arbol)) {
+    return -1;
+  }
+  // Paso inductivo: Calcular la profundidad en los subarboles
+  else {
+    return (btree_profundidad(arbol->left, dato) + btree_profundidad(arbol->right, dato) + 1);
+  }
 }
 
+/**
+ * Sumar todos los elementos de un arbol
+ */
 int btree_sumar(BTree arbol) {
   // Suma todos los elementos de un arbol
+  // Caso base: Árbol vacío
+  if (btree_empty(arbol)) {
+    return 0;
+  }
+  else {
+    int left = btree_sumar(arbol->left);
+    int right = btree_sumar(arbol->right);
+    return (arbol->dato + left + right);
+  }
 }
+
+// Toda esta mierda es recursiva lol
