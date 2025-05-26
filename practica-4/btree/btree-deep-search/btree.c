@@ -200,4 +200,33 @@ int btree_sumar(BTree arbol) {
   }
 }
 
+void btree_recorrer_extra(BTree arbol, BTreeOrdenDeRecorrido orden, FuncionVisitanteExtra visit, void *extra) {
+  // Caso base: Arbol vacío
+  if (btree_empty(arbol)) {
+    return;
+  }
+  // Paso recursivo: Aplicación de función
+  else {
+    switch(orden) {
+      case BTREE_RECORRIDO_PRE:
+        visit(arbol->dato, extra);
+        btree_recorrer_extra(arbol->left, orden, visit, extra);
+        btree_recorrer_extra(arbol->right, orden, visit, extra);
+        break;
+      
+      case BTREE_RECORRIDO_POST:
+        btree_recorrer_extra(arbol->left, orden, visit, extra);
+        btree_recorrer_extra(arbol->right, orden, visit, extra);
+        visit(arbol->dato, extra);
+        break;
+
+      case BTREE_RECORRIDO_IN:
+        btree_recorrer_extra(arbol->left, orden, visit, extra);
+        visit(arbol->dato, extra);
+        btree_recorrer_extra(arbol->right, orden, visit, extra);
+        break;
+    }
+  }
+}
+
 // Toda esta mierda es recursiva lol
