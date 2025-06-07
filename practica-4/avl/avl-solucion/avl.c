@@ -182,7 +182,7 @@ static AVL_Nodo* avl_nodo_rebalancear(AVL_Nodo* raiz) {
 
   } else if (avl_nodo_factor_balance(raiz) == 2) { // desbalanceado a derecha
     /** COMPLETAR */
-    if (avl_nodo_factor_balance(raiz->der) == -1) {
+    if (avl_nodo_factor_balance(raiz->der) == -1) { // desbalanceado RL
       raiz->der = avl_nodo_rotacion_simple_der(raiz->der);
     }
 
