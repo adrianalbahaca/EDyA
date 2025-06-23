@@ -1,6 +1,7 @@
 #include "tablahash.h"
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * Casillas en la que almacenaremos los datos de la tabla hash.
@@ -96,7 +97,8 @@ void tablahash_insertar(TablaHash tabla, void *dato) {
     tabla->elems[idx].dato = tabla->copia(dato);
     return;
   }
-  // No hacer nada si hay colision.
+  // No hacer nada y advertir que hay colision.
+  // TODO: Manejar colisiones de forma adecuada
   else {
     return;
   }
