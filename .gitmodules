@@ -1,3 +1,4 @@
-[submodule "/home/hunter-lol/Code/EDyA/trabajo-final-1"]
-	path = /home/hunter-lol/Code/EDyA/trabajo-final-1
+
+[submodule "/home/hunter-lol/Code/EDyA/proyecto-final"]
+	path = /home/hunter-lol/Code/EDyA/proyecto-final
 	url = https://github.com/adrianalbahaca/Interprete-de-funciones-de-listas.git
