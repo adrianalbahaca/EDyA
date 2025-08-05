@@ -175,8 +175,15 @@ static AVL_Nodo* avl_nodo_insertar(AVL_Nodo* raiz, void* dato,
     return raiz;
   }
   else if (comp(raiz->dato, dato) < 0) { // el dato debe ir en el subarbol der
-    /** COMPLETAR */
-    assert(0);
+    raiz->der = avl_nodo_insertar(raiz->der, dato, copia, comp);
+    // chequear balance
+    if(avl_nodo_factor_balance(raiz) == 2) {
+      // casos 1 o 2
+      if (avl_nodo_factor_balance(raiz->der) == -1) {
+        raiz->der = avl_nodo_rotacion_simple_der(raiz->der);
+      }
+      raiz = avl_nodo_rotacion_simple_izq(raiz);
+    }
     return raiz;
   }
   else // no agregar elementos repetidos
