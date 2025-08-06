@@ -9,7 +9,6 @@ typedef char* String;
  */
 typedef struct _SNodo {
   int persona_hash;
-  int asociasion;
   struct _SNodo *sig;
 } SNodo;
 
@@ -18,6 +17,7 @@ typedef struct _SNodo {
  */
 typedef struct {
   SNodo* asociasiones;
+  int conPersona;
 } CasillaHash;
 
 /**
@@ -67,5 +67,12 @@ void eliminar_persona(Matriz matriz, String persona);
  * Destruye una matriz entera
  */
 void destruir_matriz(Matriz matriz);
+
+/**
+ * r_kleen: Matriz String -> int
+ * Calcula la cantidad de personas asociadas a una persona de forma directa o
+ * indirecta
+ */
+int r_kleen(Matriz matriz, String persona);
 
 #endif // __SOLUCION_1__
